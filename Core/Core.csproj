@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{276910D4-2954-431B-8269-E5AE8DB16CD1}</ProjectGuid>
+    <ProjectGuid>{B4C84EDB-CE98-4146-948A-EABFD3FD4A64}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataAccess</RootNamespace>
-    <AssemblyName>DataAccess</AssemblyName>
+    <RootNamespace>Core</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -155,26 +155,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ICategoryDal.cs" />
-    <Compile Include="Abstract\ICustomerDal.cs" />
-    <Compile Include="Abstract\IOrderDal.cs" />
-    <Compile Include="Abstract\IProductDal.cs" />
-    <Compile Include="Concrete\EntityFramework\EfCategoryDal.cs" />
-    <Compile Include="Concrete\EntityFramework\EfCustomerDal.cs" />
-    <Compile Include="Concrete\EntityFramework\EfOrderDal.cs" />
-    <Compile Include="Concrete\EntityFramework\EfProductDal.cs" />
-    <Compile Include="Concrete\EntityFramework\NorthwindContext.cs" />
+    <Compile Include="DataAccess\EntityFramework\EfEntityRepositoryBase.cs" />
+    <Compile Include="DataAccess\IEntityRepository.cs" />
+    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{B4C84EDB-CE98-4146-948A-EABFD3FD4A64}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{E99B072F-3386-443E-988A-5346EC692351}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

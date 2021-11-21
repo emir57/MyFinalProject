@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -11,29 +12,38 @@ namespace Business.Concrete
 {
     public class CategoryManager : ICategoryService
     {
-        public Task Add(Category entity)
+        private readonly ICategoryDal _categoryDal;
+
+        public CategoryManager(ICategoryDal categoryDal)
         {
-            throw new NotImplementedException();
+            _categoryDal = categoryDal;
         }
 
-        public Task Delete(Category entity)
+        public async Task Add(Category entity)
         {
-            throw new NotImplementedException();
+            await _categoryDal.Add(entity);
         }
 
-        public Task<Category> Get(Expression<Func<Category, bool>> filter)
+        public async Task Delete(Category entity)
         {
-            throw new NotImplementedException();
+            await _categoryDal.Delete(entity);
         }
 
-        public Task<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null)
+        public async Task<Category> Get(Expression<Func<Category, bool>> filter)
         {
-            throw new NotImplementedException();
+            return await _categoryDal.Get(filter);
         }
 
-        public Task Update(Category entity)
+        public async Task<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            return filter == null ?
+                await _categoryDal.GetAll() :
+                await _categoryDal.GetAll(filter);
+        }
+
+        public async Task Update(Category entity)
+        {
+            await _categoryDal.Update(entity);
         }
     }
 }
