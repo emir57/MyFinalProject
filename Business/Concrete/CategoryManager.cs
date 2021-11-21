@@ -41,6 +41,11 @@ namespace Business.Concrete
                 await _categoryDal.GetAll(filter);
         }
 
+        public async Task<Category> GetById(int categoryId)
+        {
+            return await _categoryDal.Get(c => c.CategoryId == categoryId);
+        }
+
         public async Task Update(Category entity)
         {
             await _categoryDal.Update(entity);

@@ -10,16 +10,26 @@ namespace ConsoleUI
     {
         static async Task Main(string[] args)
         {
-            IProductService productManager = new ProductManager(new EfProductDal());
-            IOrderService orderService = new OrderManager(new EfOrderDal());
-            foreach (var order in await orderService.GetAll())
+            await ProductTest();
+            //await CategoryTest();
+        }
+
+        private static async Task CategoryTest()
+        {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            foreach (var category in await categoryManager.GetAll())
             {
-                Console.WriteLine($"{order.ShipCity}");
+                Console.WriteLine($"{category.CategoryName}");
             }
-            //foreach (var product in await productManager.GetByUnitPrice(30,50))
-            //{
-            //    Console.WriteLine($"{product.ProductName} {product.UnitPrice}$");
-            //}
+        }
+
+        private static async Task ProductTest()
+        {
+            IProductService productManager = new ProductManager(new EfProductDal());
+            foreach (var product in await productManager.GetProductDetails())
+            {
+                Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
+            }
         }
     }
 }

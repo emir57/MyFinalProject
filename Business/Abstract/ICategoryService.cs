@@ -12,6 +12,7 @@ namespace Business.Abstract
     {
         Task<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null);
         Task<Category> Get(Expression<Func<Category, bool>> filter);
+        Task<Category> GetById(int categoryId);
         Task Add(Category entity);
         Task Update(Category entity);
         Task Delete(Category entity);

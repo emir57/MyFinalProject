@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,11 @@ namespace Business.Concrete
         public async Task<List<Product>> GetByUnitPrice(decimal minPrice, decimal maxPrice)
         {
             return await _productDal.GetAll(p => p.UnitPrice >= minPrice && p.UnitPrice <= maxPrice);
+        }
+
+        public async Task<List<ProductDetailDto>> GetProductDetails()
+        {
+            return await _productDal.GetProductDetails();
         }
 
         public async Task Update(Product entity)
