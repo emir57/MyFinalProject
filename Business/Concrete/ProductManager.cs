@@ -40,31 +40,31 @@ namespace Business.Concrete
         {
             if (DateTime.Now.Hour==22)
             {
-                return new ErrorDataResult<List<Product>>();
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
             return filter == null ?
-                new SuccessDataResult<List<Product>>(await _productDal.GetAll()) :
-                new SuccessDataResult<List<Product>>(await _productDal.GetAll(filter));
+                new SuccessDataResult<List<Product>>(await _productDal.GetAll(),Messages.ProductsListed) :
+                new SuccessDataResult<List<Product>>(await _productDal.GetAll(filter), Messages.ProductsListed);
         }
 
-        public async Task<List<Product>> GetAllByCategoryId(int categoryId)
+        public async Task<IDataResult<List<Product>>> GetAllByCategoryId(int categoryId)
         {
-            return await _productDal.GetAll(a => a.CategoryId == categoryId);
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAll(a => a.CategoryId == categoryId));
         }
 
-        public async Task<Product> GetById(int productId)
+        public async Task<IDataResult<Product>> GetById(int productId)
         {
-            return await _productDal.Get(p => p.ProductId == productId);
+            return new SuccessDataResult<Product>(await _productDal.Get(p => p.ProductId == productId));
         }
 
-        public async Task<List<Product>> GetByUnitPrice(decimal minPrice, decimal maxPrice)
+        public async Task<IDataResult<List<Product>>> GetByUnitPrice(decimal minPrice, decimal maxPrice)
         {
-            return await _productDal.GetAll(p => p.UnitPrice >= minPrice && p.UnitPrice <= maxPrice);
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAll(p => p.UnitPrice >= minPrice && p.UnitPrice <= maxPrice));
         }
 
-        public async Task<List<ProductDetailDto>> GetProductDetails()
+        public async Task<IDataResult<List<ProductDetailDto>>> GetProductDetails()
         {
-            return await _productDal.GetProductDetails();
+            return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetails());
         }
 
         public async Task Update(Product entity)
