@@ -29,10 +29,19 @@ namespace ConsoleUI
         private static async Task ProductTest()
         {
             IProductService productManager = new ProductManager(new EfProductDal());
-            foreach (var product in ((SuccessDataResult<List<ProductDetailDto>>)await productManager.GetProductDetails()).Data)
+            var result = await productManager.GetProductDetails();
+            if (result.Success)
             {
-                Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
         }
     }
 }
