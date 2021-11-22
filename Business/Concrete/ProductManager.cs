@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -20,31 +22,39 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
-        public async Task Add(Product entity)
+        public async Task<IResult> Add(Product entity)
         {
+            if (entity.ProductName.Length<2)
+            {
+                return new ErrorResult(Messages.ProductNameInvalid);
+            }
             await _productDal.Add(entity);
+            return new SuccessResult(Messages.ProductAdded);
         }
 
         public async Task Delete(Product entity)
         {
             await _productDal.Delete(entity);
         }
-
-        public async Task<Product> Get(Expression<Func<Product, bool>> filter)
+        public async Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null)
         {
-            return await _productDal.Get(filter);
-        }
-
-        public async Task<List<Product>> GetAll(Expression<Func<Product, bool>> filter = null)
-        {
+            if (DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult<List<Product>>();
+            }
             return filter == null ?
-                await _productDal.GetAll() :
-                await _productDal.GetAll(filter);
+                new SuccessDataResult<List<Product>>(await _productDal.GetAll()) :
+                new SuccessDataResult<List<Product>>(await _productDal.GetAll(filter));
         }
 
         public async Task<List<Product>> GetAllByCategoryId(int categoryId)
         {
             return await _productDal.GetAll(a => a.CategoryId == categoryId);
+        }
+
+        public async Task<Product> GetById(int productId)
+        {
+            return await _productDal.Get(p => p.ProductId == productId);
         }
 
         public async Task<List<Product>> GetByUnitPrice(decimal minPrice, decimal maxPrice)
