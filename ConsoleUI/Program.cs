@@ -1,7 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Core.Utilities.Results;
 using DataAccess.Concrete.EntityFramework;
+using Entities.DTOs;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConsoleUI
@@ -26,7 +29,7 @@ namespace ConsoleUI
         private static async Task ProductTest()
         {
             IProductService productManager = new ProductManager(new EfProductDal());
-            foreach (var product in await productManager.GetProductDetails())
+            foreach (var product in ((SuccessDataResult<List<ProductDetailDto>>)await productManager.GetProductDetails()).Data)
             {
                 Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
             }
