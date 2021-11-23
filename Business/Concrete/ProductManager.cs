@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -26,13 +27,8 @@ namespace Business.Concrete
 
         public async Task<IResult> Add(Product entity)
         {
-            var context = new ValidationContext<Product>(entity);
-            ProductValidator productValidator = new ProductValidator();
-            var result = productValidator.Validate(context);
-            if (!result.IsValid)
-            {
-                throw new ValidationException(result.Errors);
-            }
+            
+            ValidationTool.Validate(new ProductValidator(),entity);
 
             await _productDal.Add(entity);
             return new SuccessResult(Messages.ProductAdded);
