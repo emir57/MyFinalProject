@@ -1,9 +1,11 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +26,14 @@ namespace Business.Concrete
 
         public async Task<IResult> Add(Product entity)
         {
-            if (entity.ProductName.Length<2)
+            var context = new ValidationContext<Product>(entity);
+            ProductValidator productValidator = new ProductValidator();
+            var result = productValidator.Validate(context);
+            if (!result.IsValid)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                throw new ValidationException(result.Errors);
             }
+
             await _productDal.Add(entity);
             return new SuccessResult(Messages.ProductAdded);
         }
