@@ -38,7 +38,7 @@ namespace Business.Concrete
         }
         public async Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null)
         {
-            if (DateTime.Now.Hour==22)
+            if (DateTime.Now.Hour == 23)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
