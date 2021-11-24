@@ -89,6 +89,9 @@
     <Compile Include="Abstract\ICustomerService.cs" />
     <Compile Include="Abstract\IOrderService.cs" />
     <Compile Include="Abstract\IProductService.cs" />
+    <Compile Include="CCS\DatabaseLogger.cs" />
+    <Compile Include="CCS\FileLogger.cs" />
+    <Compile Include="CCS\ILogger.cs" />
     <Compile Include="Concrete\CategoryManager.cs" />
     <Compile Include="Concrete\CustomerManager.cs" />
     <Compile Include="Concrete\OrderManager.cs" />

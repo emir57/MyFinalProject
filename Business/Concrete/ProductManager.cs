@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -28,6 +29,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
         {
+
             await _productDal.Add(entity);
             return new SuccessResult(Messages.ProductAdded);
         }
