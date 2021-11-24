@@ -17,7 +17,7 @@ namespace Core.Aspects.Autofac.Validation
         {
             if (!typeof(IValidator).IsAssignableFrom(validatorType))
             {
-                throw new Exception("Geçersiz doğrulama tipi");
+                throw new Exception("validasyon için geçersiz tip");
             }
             _validatorType = validatorType;
         }
@@ -25,12 +25,31 @@ namespace Core.Aspects.Autofac.Validation
         {
             var validator = (IValidator)Activator.CreateInstance(_validatorType);
             var entityType = _validatorType.BaseType.GetGenericArguments()[0];
-            var entities = invocation.Arguments.Where(t => t.GetType() == entityType);
+            var entities = invocation.Arguments.Where(x => x.GetType() == entityType);
             foreach (var entity in entities)
             {
-                ValidationTool.Validate(validator,entity);
+                ValidationTool.Validate(validator, entity);
             }
         }
+        //private Type _validatorType;
+        //public ValidationAspect(Type validatorType)
+        //{
+        //    if (!typeof(IValidator).IsAssignableFrom(validatorType))
+        //    {
+        //        throw new Exception("Geçersiz doğrulama tipi");
+        //    }
+        //    _validatorType = validatorType;
+        //}
+        //protected override void OnBefore(IInvocation invocation)
+        //{
+        //    var validator = (IValidator)Activator.CreateInstance(_validatorType);
+        //    var entityType = _validatorType.BaseType.GetGenericArguments()[0];
+        //    var entities = invocation.Arguments.Where(t => t.GetType() == entityType);
+        //    foreach (var entity in entities)
+        //    {
+        //        ValidationTool.Validate(validator,entity);
+        //    }
+        //}
 
     }
 }
