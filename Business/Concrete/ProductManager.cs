@@ -33,7 +33,7 @@ namespace Business.Concrete
             var result = BusinessRules.Run(
                 await CheckIfProductCountOfCategoryCorrect(entity.CategoryId),
                 await CheckProductNameAsync(entity.ProductName));
-            if (!result.Success)
+            if (result!=null)
             {
                 return result;
             }
