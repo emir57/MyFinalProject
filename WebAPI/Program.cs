@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ninject.Web.Common;
+using Business.DependencyResolvers.Ninject;
 
 namespace WebAPI
 {
