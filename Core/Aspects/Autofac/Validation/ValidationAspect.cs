@@ -10,16 +10,15 @@ using System.Threading.Tasks;
 
 namespace Core.Aspects.Autofac.Validation
 {
-    public class ValidationAspect : MethodInterception
+    public class ValidationAspect :MethodInterception
     {
         private Type _validatorType;
         public ValidationAspect(Type validatorType)
         {
             if (!typeof(IValidator).IsAssignableFrom(validatorType))
             {
-                throw new Exception("Bu bir doğrulama sınıfı değil.");
+                throw new Exception("Geçersiz doğrulama tipi");
             }
-
             _validatorType = validatorType;
         }
         protected override void OnBefore(IInvocation invocation)
@@ -29,8 +28,9 @@ namespace Core.Aspects.Autofac.Validation
             var entities = invocation.Arguments.Where(t => t.GetType() == entityType);
             foreach (var entity in entities)
             {
-                ValidationTool.Validate(validator, entity);
+                ValidationTool.Validate(validator,entity);
             }
         }
+
     }
 }
