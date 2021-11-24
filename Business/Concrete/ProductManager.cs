@@ -29,9 +29,24 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
         {
-
+            var result = await CheckIfProductCountOfCategoryCorrect(entity.CategoryId);
+            if (!result.Success)
+            {
+                return result;
+            }
+            var result2 = await CheckProductNameAsync(entity.ProductName);
+            if (!result2.Success)
+            {
+                return result2;
+            }
             await _productDal.Add(entity);
             return new SuccessResult(Messages.ProductAdded);
+            
+        }
+        [ValidationAspect(typeof(ProductValidator))]
+        public async Task Update(Product entity)
+        {
+            await _productDal.Update(entity);
         }
 
         public async Task Delete(Product entity)
@@ -68,10 +83,26 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetails());
         }
-
-        public async Task Update(Product entity)
+    
+    
+        private async Task<IResult> CheckIfProductCountOfCategoryCorrect(int categoryId)
         {
-            await _productDal.Update(entity);
+            var products = await _productDal.GetAll(p => p.CategoryId == categoryId);
+            if (products.Count >= 10)
+            {
+                return new ErrorResult(Messages.ProductCountOfCategoryError);
+            }
+            return new SuccessResult();
         }
+        private async Task<IResult> CheckProductNameAsync(string productName)
+        {
+            var product = await _productDal.GetAll(p => p.ProductName == productName);
+            if (product.Any())
+            {
+                return new ErrorResult(Messages.ProductCheckForName);
+            }
+            return new SuccessResult();
+        }
+    
     }
 }
