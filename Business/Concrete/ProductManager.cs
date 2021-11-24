@@ -4,6 +4,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -29,15 +30,12 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
         {
-            var result = await CheckIfProductCountOfCategoryCorrect(entity.CategoryId);
+            var result = BusinessRules.Run(
+                await CheckIfProductCountOfCategoryCorrect(entity.CategoryId),
+                await CheckProductNameAsync(entity.ProductName));
             if (!result.Success)
             {
                 return result;
-            }
-            var result2 = await CheckProductNameAsync(entity.ProductName);
-            if (!result2.Success)
-            {
-                return result2;
             }
             await _productDal.Add(entity);
             return new SuccessResult(Messages.ProductAdded);

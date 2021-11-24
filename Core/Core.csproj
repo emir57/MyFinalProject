@@ -178,6 +178,7 @@
     <Compile Include="Entities\IDto.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Business\BusinessRules.cs" />
     <Compile Include="Utilities\Interceptors\AspectInterceptorSelector.cs" />
     <Compile Include="Utilities\Interceptors\MethodInterception.cs" />
     <Compile Include="Utilities\Interceptors\MethodInterceptionBaseAttribute.cs" />
