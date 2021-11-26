@@ -193,6 +193,8 @@
     <Compile Include="Utilities\Results\Result.cs" />
     <Compile Include="Utilities\Results\SuccessDataResult.cs" />
     <Compile Include="Utilities\Results\SuccessResult.cs" />
+    <Compile Include="Utilities\Security\Encryption\SecurityKeyHelper.cs" />
+    <Compile Include="Utilities\Security\Encryption\SigningCredentialsHelper.cs" />
     <Compile Include="Utilities\Security\Hashing\HashingHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +202,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utilities\Security\Encryption\" />
     <Folder Include="Utilities\Security\JWT\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
