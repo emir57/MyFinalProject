@@ -28,6 +28,9 @@ namespace Business.Concrete
             _productDal = productDal;
             _categoryService = categoryService;
         }
+
+        
+        [SecuredOperation("admin,editor")]
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
         {
