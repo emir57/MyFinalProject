@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -29,21 +30,24 @@ namespace Business.Concrete
             await _categoryDal.Delete(entity);
         }
 
-        public async Task<Category> Get(Expression<Func<Category, bool>> filter)
+        public async Task<IDataResult<Category>> Get(Expression<Func<Category, bool>> filter)
         {
-            return await _categoryDal.Get(filter);
+            var category = await _categoryDal.Get(filter);
+            return new SuccessDataResult<Category>(category);
         }
 
-        public async Task<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null)
+        public async Task<IDataResult<List<Category>>> GetAll(Expression<Func<Category, bool>> filter = null)
         {
-            return filter == null ?
+            var categories = filter == null ?
                 await _categoryDal.GetAll() :
                 await _categoryDal.GetAll(filter);
+            return new SuccessDataResult<List<Category>>(categories);
         }
 
-        public async Task<Category> GetById(int categoryId)
+        public async Task<IDataResult<Category>> GetById(int categoryId)
         {
-            return await _categoryDal.Get(c => c.CategoryId == categoryId);
+            var category = await _categoryDal.Get(c => c.CategoryId == categoryId);
+            return new SuccessDataResult<Category>(category);
         }
 
         public async Task Update(Category entity)

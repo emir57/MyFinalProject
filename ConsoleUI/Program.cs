@@ -20,7 +20,8 @@ namespace ConsoleUI
         private static async Task CategoryTest()
         {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-            foreach (var category in await categoryManager.GetAll())
+            var result = await categoryManager.GetAll();
+            foreach (var category in result.Data)
             {
                 Console.WriteLine($"{category.CategoryName}");
             }
@@ -28,7 +29,7 @@ namespace ConsoleUI
 
         private static async Task ProductTest()
         {
-            IProductService productManager = new ProductManager(new EfProductDal());
+            IProductService productManager = new ProductManager(new EfProductDal(),new CategoryManager(new EfCategoryDal()));
             var result = await productManager.GetProductDetails();
             if (result.Success)
             {

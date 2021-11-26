@@ -22,17 +22,19 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         private readonly IProductDal _productDal;
-
-        public ProductManager(IProductDal productDal)
+        ICategoryService _categoryService;
+        public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
         }
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
         {
             var result = BusinessRules.Run(
                 await CheckIfProductCountOfCategoryCorrect(entity.CategoryId),
-                await CheckProductNameAsync(entity.ProductName));
+                await CheckProductNameAsync(entity.ProductName),
+                await CheckIfCategoryLimitExceed());
             if (result!=null)
             {
                 return result;
@@ -100,6 +102,16 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.ProductCheckForName);
             }
             return new SuccessResult();
+        }
+        private async Task<IResult> CheckIfCategoryLimitExceed()
+        {
+            var categories = await _categoryService.GetAll();
+            if (categories.Data.Count>15)
+            {
+                return new ErrorResult(Messages.CategoryLimitExceed);
+            }
+            return new SuccessResult();
+            
         }
     
     }

@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Business.Abstract
 {
     public interface ICategoryService
     {
-        Task<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null);
-        Task<Category> Get(Expression<Func<Category, bool>> filter);
-        Task<Category> GetById(int categoryId);
+        Task<IDataResult<List<Category>>> GetAll(Expression<Func<Category, bool>> filter = null);
+        Task<IDataResult<Category>> Get(Expression<Func<Category, bool>> filter);
+        Task<IDataResult<Category>> GetById(int categoryId);
         Task Add(Category entity);
         Task Update(Category entity);
         Task Delete(Category entity);

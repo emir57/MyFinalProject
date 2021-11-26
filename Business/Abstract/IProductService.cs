@@ -21,5 +21,7 @@ namespace Business.Abstract
         Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null);
         Task<IResult> Add(Product entity);
         Task<IDataResult<Product>> GetById(int productId);
+
+        
     }
 }
