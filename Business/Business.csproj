@@ -100,18 +100,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAuthService.cs" />
     <Compile Include="Abstract\ICategoryService.cs" />
     <Compile Include="Abstract\ICustomerService.cs" />
+    <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="Abstract\IOrderService.cs" />
     <Compile Include="Abstract\IProductService.cs" />
     <Compile Include="BusinessAspects\Autofac\SecuredOperation.cs" />
     <Compile Include="CCS\DatabaseLogger.cs" />
     <Compile Include="CCS\FileLogger.cs" />
     <Compile Include="CCS\ILogger.cs" />
+    <Compile Include="Concrete\AuthManager.cs" />
     <Compile Include="Concrete\CategoryManager.cs" />
     <Compile Include="Concrete\CustomerManager.cs" />
     <Compile Include="Concrete\OrderManager.cs" />
     <Compile Include="Concrete\ProductManager.cs" />
+    <Compile Include="Concrete\UserManager.cs" />
     <Compile Include="Constants\Messages.cs" />
     <Compile Include="DependencyResolvers\Autofac\AutofacBusinessModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\NinjectBusinessModule.cs" />
