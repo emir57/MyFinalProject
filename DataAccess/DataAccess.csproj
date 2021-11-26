@@ -160,6 +160,7 @@
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IOrderDal.cs" />
     <Compile Include="Abstract\IProductDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfCategoryDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfCustomerDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfOrderDal.cs" />
