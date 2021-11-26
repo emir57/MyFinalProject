@@ -157,6 +157,7 @@
   <ItemGroup>
     <Compile Include="Abstract\ICategoryDal.cs" />
     <Compile Include="Abstract\ICustomerDal.cs" />
+    <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IOrderDal.cs" />
     <Compile Include="Abstract\IProductDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfCategoryDal.cs" />
