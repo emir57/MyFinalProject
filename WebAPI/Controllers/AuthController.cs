@@ -38,6 +38,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             var userExists = await _authService.UserExists(userForRegisterDto.Email);
+            //true
             if (!userExists.Success)
             {
                 return BadRequest(userExists.Message);
