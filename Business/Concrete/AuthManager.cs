@@ -53,9 +53,10 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
 
-        public IResult UserExists(string email)
+        public async Task<IResult> UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            var user = await _userService.GetByMail(email);
+            if ( user != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
