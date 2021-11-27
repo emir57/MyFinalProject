@@ -31,7 +31,7 @@ namespace Business.Concrete
         }
 
         
-        [SecuredOperation("admin,editor")]
+        [SecuredOperation("Admin,Editor")]
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
         {
@@ -57,6 +57,7 @@ namespace Business.Concrete
         {
             await _productDal.Delete(entity);
         }
+        [CacheAspect]
         public async Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null)
         {
             if (DateTime.Now.Hour == 23)
