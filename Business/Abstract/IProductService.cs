@@ -22,6 +22,8 @@ namespace Business.Abstract
         Task<IResult> Add(Product entity);
         Task<IDataResult<Product>> GetById(int productId);
 
+        Task<IResult> AddTransactionalTest(Product entity);
+
         
     }
 }

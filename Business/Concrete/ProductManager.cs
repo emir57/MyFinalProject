@@ -18,6 +18,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Aspects.Autofac.Transaction;
+using Core.Aspects.Autofac.Performance;
 
 namespace Business.Concrete
 {
@@ -61,6 +63,7 @@ namespace Business.Concrete
             await _productDal.Delete(entity);
         }
         [CacheAspect(60)]
+        [PerformanceAspect(1)]
         public async Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null)
         {
             if (DateTime.Now.Hour == 23)
@@ -77,6 +80,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(await _productDal.GetAll(a => a.CategoryId == categoryId));
         }
         [CacheAspect]
+        //[PerformanceAspect(2)]
         public async Task<IDataResult<Product>> GetById(int productId)
         {
             return new SuccessDataResult<Product>(await _productDal.Get(p => p.ProductId == productId));
@@ -121,6 +125,18 @@ namespace Business.Concrete
             return new SuccessResult();
             
         }
-    
+
+        [TransactionalScopeAspect]
+        public async Task<IResult> AddTransactionalTest(Product entity)
+        {
+            
+            await Add(entity);
+            if (entity.UnitPrice < 10)
+            {
+                throw new Exception();
+            }
+            await Add(entity);
+            return null;
+        }
     }
 }
