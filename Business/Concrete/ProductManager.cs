@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -30,7 +31,8 @@ namespace Business.Concrete
             _categoryService = categoryService;
         }
 
-        
+
+        [CacheRemoveAspect("IProductService.Get")]
         [SecuredOperation("Admin,Editor")]
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
@@ -47,17 +49,18 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
             
         }
+        [CacheRemoveAspect("IProductService.Get")]
         [ValidationAspect(typeof(ProductValidator))]
         public async Task Update(Product entity)
         {
             await _productDal.Update(entity);
         }
-
+        [CacheRemoveAspect("IProductService.Get")]
         public async Task Delete(Product entity)
         {
             await _productDal.Delete(entity);
         }
-        [CacheAspect]
+        [CacheAspect(60)]
         public async Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null)
         {
             if (DateTime.Now.Hour == 23)
@@ -73,7 +76,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Product>>(await _productDal.GetAll(a => a.CategoryId == categoryId));
         }
-
+        [CacheAspect]
         public async Task<IDataResult<Product>> GetById(int productId)
         {
             return new SuccessDataResult<Product>(await _productDal.Get(p => p.ProductId == productId));
