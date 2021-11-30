@@ -43,6 +43,16 @@ namespace WebAPI.Controllers
             }
             return NotFound(result.Message);
         }
+        [HttpGet("getbycategory")]
+        public async Task<IActionResult> GetByCategory(int categoryId)
+        {
+            var result = await _productService.GetAllByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return NotFound(result.Message);
+        }
 
         [HttpPost("add")]
         public async Task<IActionResult> Add(Product product)
