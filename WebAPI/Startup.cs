@@ -76,6 +76,8 @@ namespace WebAPI
                 .AllowAnyHeader()
             );
 
+            app.ConfigureCustomExceptionMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

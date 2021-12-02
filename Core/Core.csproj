@@ -211,6 +211,9 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Extensions\ClaimExtensions.cs" />
     <Compile Include="Extensions\ClaimsPrincipalExtensions.cs" />
+    <Compile Include="Extensions\ExceptionMiddlewareExtensions.cs" />
+    <Compile Include="Extensions\ErrorDetails.cs" />
+    <Compile Include="Extensions\ExceptionMiddleware.cs" />
     <Compile Include="Extensions\ServiceCollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Business\BusinessRules.cs" />

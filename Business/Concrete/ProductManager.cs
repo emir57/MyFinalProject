@@ -35,7 +35,7 @@ namespace Business.Concrete
 
 
         [CacheRemoveAspect("IProductService.Get")]
-        [SecuredOperation("Admin,Editor")]
+        //[SecuredOperation("Admin,Editor")]
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product entity)
         {
