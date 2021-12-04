@@ -102,7 +102,7 @@ namespace Business.Concrete
             var products = await _productDal.GetAll(p => p.CategoryId == categoryId);
             if (products.Count >= 10)
             {
-                return new ErrorResult(Messages.ProductCountOfCategoryError);
+                throw new Exception(Messages.ProductCountOfCategoryError);
             }
             return new SuccessResult();
         }
@@ -111,7 +111,7 @@ namespace Business.Concrete
             var product = await _productDal.GetAll(p => p.ProductName == productName);
             if (product.Any())
             {
-                return new ErrorResult(Messages.ProductCheckForName);
+                throw new Exception(Messages.ProductCheckForName);
             }
             return new SuccessResult();
         }
@@ -120,7 +120,7 @@ namespace Business.Concrete
             var categories = await _categoryService.GetAll();
             if (categories.Data.Count>15)
             {
-                return new ErrorResult(Messages.CategoryLimitExceed);
+                throw new Exception(Messages.CategoryLimitExceed);
             }
             return new SuccessResult();
             

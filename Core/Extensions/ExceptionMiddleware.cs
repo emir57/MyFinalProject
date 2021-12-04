@@ -51,11 +51,19 @@ namespace Core.Extensions
                     Errors = errors
                 }.ToString());
             }
+            if(e.Message=="Erişim Engellendi")
+            {
+                return httpContext.Response.WriteAsync(new ErrorDetails
+                {
+                    Message=e.Message,
+                    StatusCode=200
+                }.ToString());
+            }
 
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = httpContext.Response.StatusCode,
-                Message = message
+                Message = e.Message
             }.ToString());
         }
     }
