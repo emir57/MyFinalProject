@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
-using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
@@ -20,6 +19,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 
 namespace Business.Concrete
 {
@@ -64,6 +65,7 @@ namespace Business.Concrete
         }
         [CacheAspect(60)]
         [PerformanceAspect(1)]
+        [LogAspect(typeof(DatabaseLogger))]
         public async Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null)
         {
             if (DateTime.Now.Hour == 23)

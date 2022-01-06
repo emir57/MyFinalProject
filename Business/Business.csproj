@@ -108,9 +108,6 @@
     <Compile Include="Abstract\IOrderService.cs" />
     <Compile Include="Abstract\IProductService.cs" />
     <Compile Include="BusinessAspects\Autofac\SecuredOperation.cs" />
-    <Compile Include="CCS\DatabaseLogger.cs" />
-    <Compile Include="CCS\FileLogger.cs" />
-    <Compile Include="CCS\ILogger.cs" />
     <Compile Include="Concrete\AuthManager.cs" />
     <Compile Include="Concrete\CategoryManager.cs" />
     <Compile Include="Concrete\CustomerManager.cs" />
