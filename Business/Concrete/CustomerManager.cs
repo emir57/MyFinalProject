@@ -29,16 +29,14 @@ namespace Business.Concrete
             await _customerDal.Delete(entity);
         }
 
-        public async Task<Customer> Get(Expression<Func<Customer, bool>> filter)
+        public async Task<Customer> GetById(string id)
         {
-            return await _customerDal.Get(filter);
+            return await _customerDal.Get(x=>x.CustomerId==id);
         }
 
-        public async Task<List<Customer>> GetAll(Expression<Func<Customer, bool>> filter = null)
+        public async Task<List<Customer>> GetAll()
         {
-            return filter == null ?
-                await _customerDal.GetAll() :
-                await _customerDal.GetAll(filter);
+            return await _customerDal.GetAll();
         }
 
         public async Task Update(Customer entity)

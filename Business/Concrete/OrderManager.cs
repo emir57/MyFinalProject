@@ -29,16 +29,14 @@ namespace Business.Concrete
             await _orderDal.Delete(entity);
         }
 
-        public async Task<Order> Get(Expression<Func<Order, bool>> filter)
+        public async Task<Order> GetById(string id)
         {
-            return await _orderDal.Get(filter);
+            return await _orderDal.Get(x=>x.CustomerId == id);
         }
 
-        public async Task<List<Order>> GetAll(Expression<Func<Order, bool>> filter = null)
+        public async Task<List<Order>> GetAll()
         {
-            return filter == null ?
-                await _orderDal.GetAll() :
-                await _orderDal.GetAll(filter);
+            return await _orderDal.GetAll();
         }
 
         public async Task Update(Order entity)

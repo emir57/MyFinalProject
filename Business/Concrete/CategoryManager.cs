@@ -31,17 +31,10 @@ namespace Business.Concrete
             await _categoryDal.Delete(entity);
         }
         [CacheAspect]
-        public async Task<IDataResult<Category>> Get(Expression<Func<Category, bool>> filter)
+        public async Task<IDataResult<List<Category>>> GetAll()
         {
-            var category = await _categoryDal.Get(filter);
-            return new SuccessDataResult<Category>(category);
-        }
-        [CacheAspect]
-        public async Task<IDataResult<List<Category>>> GetAll(Expression<Func<Category, bool>> filter = null)
-        {
-            var categories = filter == null ?
-                await _categoryDal.GetAll() :
-                await _categoryDal.GetAll(filter);
+            var categories = await _categoryDal.GetAll();
+
             return new SuccessDataResult<List<Category>>(categories);
         }
         [CacheAspect]

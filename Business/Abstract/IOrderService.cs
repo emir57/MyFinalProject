@@ -10,8 +10,8 @@ namespace Business.Abstract
 {
     public interface IOrderService
     {
-        Task<List<Order>> GetAll(Expression<Func<Order, bool>> filter = null);
-        Task<Order> Get(Expression<Func<Order, bool>> filter);
+        Task<List<Order>> GetAll();
+        Task<Order> GetById(string id);
         Task Add(Order entity);
         Task Update(Order entity);
         Task Delete(Order entity);

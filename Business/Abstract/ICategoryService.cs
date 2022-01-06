@@ -11,8 +11,7 @@ namespace Business.Abstract
 {
     public interface ICategoryService
     {
-        Task<IDataResult<List<Category>>> GetAll(Expression<Func<Category, bool>> filter = null);
-        Task<IDataResult<Category>> Get(Expression<Func<Category, bool>> filter);
+        Task<IDataResult<List<Category>>> GetAll();
         Task<IDataResult<Category>> GetById(int categoryId);
         Task Add(Category entity);
         Task Update(Category entity);

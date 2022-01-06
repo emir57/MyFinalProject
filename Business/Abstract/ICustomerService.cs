@@ -10,8 +10,8 @@ namespace Business.Abstract
 {
     public interface ICustomerService
     {
-        Task<List<Customer>> GetAll(Expression<Func<Customer, bool>> filter = null);
-        Task<Customer> Get(Expression<Func<Customer, bool>> filter);
+        Task<List<Customer>> GetAll();
+        Task<Customer> GetById(string id);
         Task Add(Customer entity);
         Task Update(Customer entity);
         Task Delete(Customer entity);
