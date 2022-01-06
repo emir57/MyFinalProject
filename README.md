@@ -1,6 +1,6 @@
 # MyFinalProject
-Kurumsal Mimari Projesi
-<br>
+An Enterprise Architecture Project (Kurumsal Mimari Projesi)
+<br><br>
 Async Programming ⚙️ <br>
 AOP Programming ⚙️ <br>
 JWT Token 🔐 <br>
