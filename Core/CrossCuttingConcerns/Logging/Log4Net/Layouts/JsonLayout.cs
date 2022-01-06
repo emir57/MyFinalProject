@@ -21,7 +21,7 @@ namespace Core.CrossCuttingConcerns.Logging.Log4Net.Layouts
         {
             var logEvent = new SerializableLogEvent(loggingEvent);
             var json = JsonConvert.SerializeObject(logEvent, Formatting.Indented);
-            writer.Write(json);
+            writer.WriteLine(json);
         }
     }
 }

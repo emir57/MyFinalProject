@@ -66,15 +66,14 @@ namespace Business.Concrete
         [CacheAspect(60)]
         [PerformanceAspect(1)]
         [LogAspect(typeof(DatabaseLogger))]
-        public async Task<IDataResult<List<Product>>> GetAll(Expression<Func<Product, bool>> filter = null)
+        public async Task<IDataResult<List<Product>>> GetAll()
         {
             if (DateTime.Now.Hour == 23)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            return filter == null ?
-                new SuccessDataResult<List<Product>>(await _productDal.GetAll(),Messages.ProductsListed) :
-                new SuccessDataResult<List<Product>>(await _productDal.GetAll(filter), Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAll(), Messages.ProductsListed);
+                
         }
 
         public async Task<IDataResult<List<Product>>> GetAllByCategoryId(int categoryId)
