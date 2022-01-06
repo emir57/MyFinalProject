@@ -199,6 +199,7 @@
   <ItemGroup>
     <Compile Include="Aspects\Autofac\Caching\CacheAspect.cs" />
     <Compile Include="Aspects\Autofac\Caching\CacheRemoveAspect.cs" />
+    <Compile Include="Aspects\Autofac\Logging\LogAspect.cs" />
     <Compile Include="Aspects\Autofac\Performance\PerformanceAspect.cs" />
     <Compile Include="Aspects\Autofac\Transaction\TransactionalScopeAspect.cs" />
     <Compile Include="Aspects\Autofac\Validation\ValidationAspect.cs" />
