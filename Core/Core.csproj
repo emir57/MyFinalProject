@@ -222,6 +222,7 @@
     <Compile Include="Utilities\Interceptors\MethodInterceptionBaseAttribute.cs" />
     <Compile Include="Utilities\IoC\ICoreModule.cs" />
     <Compile Include="Utilities\IoC\ServiceTool.cs" />
+    <Compile Include="Utilities\Messages\AspectMessages.cs" />
     <Compile Include="Utilities\Results\DataResult.cs" />
     <Compile Include="Utilities\Results\ErrorDataResult.cs" />
     <Compile Include="Utilities\Results\ErrorResult.cs" />
