@@ -69,7 +69,6 @@ namespace Business.Concrete
         [LogAspect(typeof(FileLogger))]
         public async Task<IDataResult<List<Product>>> GetAll()
         {
-            throw new Exception("asdsad");
             if (DateTime.Now.Hour == 23)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
