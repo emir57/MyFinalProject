@@ -33,7 +33,7 @@ namespace Business.Concrete
         [CacheAspect]
         public async Task<IDataResult<List<Category>>> GetAll()
         {
-            var categories = _categoryDal.GetAll();
+            var categories = await _categoryDal.GetAll();
 
             return new SuccessDataResult<List<Category>>(categories);
         }

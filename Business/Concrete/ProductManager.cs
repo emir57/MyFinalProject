@@ -67,20 +67,20 @@ namespace Business.Concrete
         [CacheAspect(60)]
         [PerformanceAspect(1)]
         [LogAspect(typeof(FileLogger))]
-        public IDataResult<List<Product>> GetAll()
+        public async Task<IDataResult<List<Product>>> GetAll()
         {
             throw new Exception("asdsad");
             if (DateTime.Now.Hour == 23)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAll(), Messages.ProductsListed);
                 
         }
 
         public async Task<IDataResult<List<Product>>> GetAllByCategoryId(int categoryId)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(a => a.CategoryId == categoryId));
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAll(a => a.CategoryId == categoryId));
         }
         [CacheAspect]
         //[PerformanceAspect(2)]
@@ -91,7 +91,7 @@ namespace Business.Concrete
 
         public async Task<IDataResult<List<Product>>> GetByUnitPrice(decimal minPrice, decimal maxPrice)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= minPrice && p.UnitPrice <= maxPrice));
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAll(p => p.UnitPrice >= minPrice && p.UnitPrice <= maxPrice));
         }
 
         public async Task<IDataResult<List<ProductDetailDto>>> GetProductDetails()
@@ -102,7 +102,7 @@ namespace Business.Concrete
     
         private async Task<IResult> CheckIfProductCountOfCategoryCorrect(int categoryId)
         {
-            var products = _productDal.GetAll(p => p.CategoryId == categoryId);
+            var products = await _productDal.GetAll(p => p.CategoryId == categoryId);
             if (products.Count >= 10)
             {
                 throw new Exception(Messages.ProductCountOfCategoryError);
@@ -111,7 +111,7 @@ namespace Business.Concrete
         }
         private async Task<IResult> CheckProductNameAsync(string productName)
         {
-            var product = _productDal.GetAll(p => p.ProductName == productName);
+            var product = await _productDal.GetAll(p => p.ProductName == productName);
             if (product.Any())
             {
                 throw new Exception(Messages.ProductCheckForName);
