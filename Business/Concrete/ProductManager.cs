@@ -21,6 +21,7 @@ using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Logging;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using Core.Aspects.Autofac.Exception;
 
 namespace Business.Concrete
 {
@@ -65,7 +66,8 @@ namespace Business.Concrete
         }
         [CacheAspect(60)]
         [PerformanceAspect(1)]
-        [LogAspect(typeof(DatabaseLogger))]
+        [LogAspect(typeof(FileLogger))]
+        [ExceptionLogAspect(typeof(FileLogger))]
         public async Task<IDataResult<List<Product>>> GetAll()
         {
             if (DateTime.Now.Hour == 23)
