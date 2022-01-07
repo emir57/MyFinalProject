@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using Core.CrossCuttingConcerns.Logging;
 using Core.CrossCuttingConcerns.Logging.Log4Net;
 using Core.Utilities.Interceptors;
 using Core.Utilities.Messages;
@@ -23,8 +24,29 @@ namespace Core.Aspects.Autofac.Exception
         }
         protected override void OnException(IInvocation invocation, System.Exception exception)
         {
-            var logDetailWithException = GetLogDetail(invocation);
+            LogDetailWithException logDetailWithException = GetLogDetail(invocation);
+            logDetailWithException.ExceptionMessage = exception.Message;
+            _loggerServiceBase.Error(logDetailWithException);
+        }
 
+        private LogDetailWithException GetLogDetail(IInvocation invocation)
+        {
+            var logParameters = new List<LogParameter>();
+            for (int i = 0; i < invocation.Arguments.Length; i++)
+            {
+                logParameters.Add(new LogParameter
+                {
+                    Name = invocation.GetConcreteMethod().GetGenericArguments()[i].Name,
+                    Type = invocation.Arguments[i].GetType().ToString(),
+                    Value = invocation.Arguments[i]
+                });
+            }
+            var logDetailWithException = new LogDetailWithException
+            {
+                LogParameters = logParameters,
+                MethodName = invocation.Method.Name
+            };
+            return logDetailWithException;
         }
     }
 }
