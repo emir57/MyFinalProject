@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             Thread.Sleep(5);
-            var result = await _productService.GetAll();
+            var result = _productService.GetAll();
             if (result.Success)
             {
                 return Ok(result);

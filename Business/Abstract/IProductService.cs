@@ -18,7 +18,7 @@ namespace Business.Abstract
         Task<IDataResult<List<ProductDetailDto>>> GetProductDetails();
         Task<IDataResult<List<Product>>> GetByUnitPrice(decimal minPrice, decimal maxPrice);
         Task<IDataResult<List<Product>>> GetAllByCategoryId(int categoryId);
-        Task<IDataResult<List<Product>>> GetAll();
+        IDataResult<List<Product>> GetAll();
         Task<IResult> Add(Product entity);
         Task<IDataResult<Product>> GetById(int productId);
 

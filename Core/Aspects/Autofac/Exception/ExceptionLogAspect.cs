@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.Aspects.Autofac.Exception
 {
-    public class ExceptionLogAspect:MethodInterception
+    public class ExceptionLogAspect: MethodInterception
     {
         private LoggerServiceBase _loggerServiceBase;
         public ExceptionLogAspect(Type loggerService)
@@ -28,7 +28,6 @@ namespace Core.Aspects.Autofac.Exception
             logDetailWithException.ExceptionMessage = exception.Message;
             _loggerServiceBase.Error(logDetailWithException);
         }
-
         private LogDetailWithException GetLogDetail(IInvocation invocation)
         {
             var logParameters = new List<LogParameter>();

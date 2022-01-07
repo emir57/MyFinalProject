@@ -36,7 +36,7 @@ namespace Business.Concrete
 
         public async Task<List<Customer>> GetAll()
         {
-            return await _customerDal.GetAll();
+            return _customerDal.GetAll();
         }
 
         public async Task Update(Customer entity)

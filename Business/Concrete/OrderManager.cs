@@ -36,7 +36,7 @@ namespace Business.Concrete
 
         public async Task<List<Order>> GetAll()
         {
-            return await _orderDal.GetAll();
+            return _orderDal.GetAll();
         }
 
         public async Task Update(Order entity)
