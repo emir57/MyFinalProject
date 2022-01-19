@@ -1,5 +1,6 @@
 # MyFinalProject
-An Enterprise Architecture Project (Kurumsal Mimari Projesi)
+An Enterprise Architecture Project (Kurumsal Mimari Projesi)<br>
+This project includes basic operations.
 <br><br>
 Async Programming ⚙️ <br>
 AOP Programming ⚙️ <br>
