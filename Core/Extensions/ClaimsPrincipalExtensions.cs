@@ -19,6 +19,10 @@ namespace Core.Extensions
         {
             return claimsPrincipal?.Claims(ClaimTypes.Role);
         }
+        public static string UserEmail(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal?.FindFirst(ClaimTypes.Email)?.Value ?? "<Anonymous>";
+        }
 
     }
 }
