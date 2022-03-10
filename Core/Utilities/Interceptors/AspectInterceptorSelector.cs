@@ -1,5 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using Core.Aspects.Autofac.Exception;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Performance;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using System;
@@ -19,6 +20,7 @@ namespace Core.Utilities.Interceptors
 
             classAttributes.AddRange(methodAttributes);
             //classAttributes.Add(new PerformanceAspect(1));
+            classAttributes.Add(new LogAspect(typeof(FileLogger)));
             classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
 
             return classAttributes.OrderBy(x => x.Priority).ToArray();
