@@ -24,11 +24,8 @@ namespace Core.Utilities.Interceptors
                 var task = invocation.ReturnValue as Task;
                 if (task != null)
                 {
-                    invocation.ReturnValue = task.ContinueWith(t =>
-                    {
-                        if (t.IsFaulted)
-                            OnException(invocation, t.Exception);
-                    });
+                    if (task.IsFaulted)
+                        OnException(invocation, task.Exception);
                 }
             }
             catch (Exception exception)
