@@ -52,7 +52,8 @@ namespace Core.Aspects.Autofac.Logging
                 MethodName = invocation.Method.Name,
                 LogParameters = logParameters,
                 UserEmail = userEmail,
-                UserRoles = claims
+                UserRoles = claims,
+                DateTime = DateTime.Now
             };
             return logDetail;
         }
