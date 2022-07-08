@@ -16,8 +16,17 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
         private int _currentDatabaseId = 0;
         public RedisServer(IConfiguration configuration)
         {
+            createRedisConfigurationString(configuration);
+
             _connectionMultiplexer = ConnectionMultiplexer.Connect(configurationString);
             _database = _connectionMultiplexer.GetDatabase(_currentDatabaseId);
+        }
+
+        private void createRedisConfigurationString(IConfiguration configuration)
+        {
+            string host = configuration.GetSection("RedisConfiguration:host").Value;
+            string port = configuration.GetSection("RedisConfiguration:port").Value;
+            configurationString = String.Format($"{host}:{port}");
         }
     }
 }
