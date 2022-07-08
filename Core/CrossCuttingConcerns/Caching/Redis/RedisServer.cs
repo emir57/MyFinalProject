@@ -22,6 +22,11 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
             _database = _connectionMultiplexer.GetDatabase(_currentDatabaseId);
         }
 
+        public IDatabase Database => _database;
+        public IEnumerable<RedisKey> Keys(string pattern)
+            => _connectionMultiplexer.GetServer(configurationString).Keys(_currentDatabaseId, pattern);
+
+
         public void FlushDatabase()
         {
             _connectionMultiplexer.GetServer(configurationString).FlushDatabase(_currentDatabaseId);
