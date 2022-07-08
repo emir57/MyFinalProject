@@ -30,7 +30,8 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
 
         public object Get(string key)
         {
-            throw new NotImplementedException();
+            var redisData = _redisServer.Database.StringGet(key);
+            return JsonConvert.DeserializeObject(redisData);
         }
 
         public bool IsAdd(string key)
