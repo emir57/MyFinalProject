@@ -46,7 +46,8 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
 
         public void RemoveByPattern(string pattern)
         {
-            throw new NotImplementedException();
+            var keys = _redisServer.Keys(pattern).ToArray();
+            _redisServer.Database.KeyDelete(keys);
         }
     }
 }
