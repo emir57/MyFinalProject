@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,8 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
 
         public void Add(string key, object value, int duration)
         {
-            throw new NotImplementedException();
+            var jsonData = JsonConvert.SerializeObject(value);
+            _redisServer.Database.StringSet(key, jsonData, TimeSpan.FromMinutes(duration));
         }
 
         public T Get<T>(string key)
