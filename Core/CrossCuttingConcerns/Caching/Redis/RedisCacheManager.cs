@@ -36,7 +36,7 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
 
         public bool IsAdd(string key)
         {
-            throw new NotImplementedException();
+            return _redisServer.Database.KeyExists(key);
         }
 
         public void Remove(string key)
