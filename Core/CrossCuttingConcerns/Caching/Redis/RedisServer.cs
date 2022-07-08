@@ -22,6 +22,11 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
             _database = _connectionMultiplexer.GetDatabase(_currentDatabaseId);
         }
 
+        public void FlushDatabase()
+        {
+            _connectionMultiplexer.GetServer(configurationString).FlushDatabase(_currentDatabaseId);
+        }
+
         private void createRedisConfigurationString(IConfiguration configuration)
         {
             string host = configuration.GetSection("RedisConfiguration:host").Value;
