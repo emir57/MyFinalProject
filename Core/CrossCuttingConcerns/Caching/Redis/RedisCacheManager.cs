@@ -24,7 +24,8 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
 
         public T Get<T>(string key)
         {
-            throw new NotImplementedException();
+            var redisData = _redisServer.Database.StringGet(key);
+            return JsonConvert.DeserializeObject<T>(redisData);
         }
 
         public object Get(string key)
