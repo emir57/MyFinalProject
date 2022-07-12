@@ -15,13 +15,13 @@ using Core.Extensions;
 
 namespace Core.Aspects.Autofac.Logging
 {
-    public class LogAspect:MethodInterception
+    public class LogAspect : MethodInterception
     {
         private LoggerServiceBase _loggerServiceBase;
         private IHttpContextAccessor _httpContextAccessor;
         public LogAspect(Type loggingType)
         {
-            if (!typeof(LoggerServiceBase).IsAssignableFrom(loggingType))
+            if (typeof(LoggerServiceBase).IsAssignableFrom(loggingType) == false)
             {
                 throw new System.Exception(AspectMessages.WrongLoggingType);
             }
