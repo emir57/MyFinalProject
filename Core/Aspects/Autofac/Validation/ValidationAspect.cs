@@ -1,13 +1,10 @@
 ﻿using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Exceptions.Aspect;
 using Core.Utilities.Interceptors;
-using Core.Utilities.Messages;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Aspects.Autofac.Validation
 {
@@ -16,10 +13,8 @@ namespace Core.Aspects.Autofac.Validation
         private Type _validatorType;
         public ValidationAspect(Type validatorType)
         {
-            if (!typeof(IValidator).IsAssignableFrom(validatorType))
-            {
-                throw new System.Exception(AspectMessages.WrongValidationType);
-            }
+            WrongValidationTypeException.IfNotEqual(validatorType, _validatorType);
+
             _validatorType = validatorType;
         }
         protected override void OnBefore(IInvocation invocation)
