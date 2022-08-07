@@ -28,6 +28,7 @@ namespace Core.Aspects.Autofac.Performance
         {
             if (_stopwatch.Elapsed.TotalSeconds>_interval)
             {
+                //TODO: send email,send sms or logging
                 Debug.WriteLine($"Performance: {invocation.Method.DeclaringType.FullName}.{invocation.Method.Name}-->{_stopwatch.Elapsed.TotalSeconds} seconds.");
             }
             _stopwatch.Reset();
