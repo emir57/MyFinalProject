@@ -1,19 +1,14 @@
 ﻿using Castle.DynamicProxy;
+using Core.Exceptions.UnAuthorized;
 using Core.Extensions;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Business.Constants;
 
 namespace Business.BusinessAspects.Autofac
 {
-    public class SecuredOperation:MethodInterception
+    public class SecuredOperation : MethodInterception
     {
         private string[] _roles;
         private IHttpContextAccessor _httpContextAccessor;
@@ -32,7 +27,7 @@ namespace Business.BusinessAspects.Autofac
                     return;
                 }
             }
-            throw new Exception(Messages.AuthorizationDenied);
+            throw new UnAuthorizedException();
         }
     }
 }
