@@ -249,6 +249,7 @@
     <Compile Include="Entities\IDto.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Exceptions\Aspect\WrongLoggingTypeException.cs" />
+    <Compile Include="Exceptions\Aspect\WrongValidationTypeException.cs" />
     <Compile Include="Extensions\ClaimExtensions.cs" />
     <Compile Include="Extensions\ClaimsPrincipalExtensions.cs" />
     <Compile Include="Extensions\ExceptionMiddlewareExtensions.cs" />
