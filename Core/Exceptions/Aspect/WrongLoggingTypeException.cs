@@ -18,22 +18,23 @@ namespace Core.Exceptions.Aspect
         }
         public static void IfNotEqual(Type obja, Type objb)
         {
-            if (obja != objb)
-                throw new WrongLoggingTypeException();
+            ifNotEqual(obja, objb);
         }
         public static void IfNotEqual(Type obja, object objb)
         {
-            if (obja != objb.GetType())
-                throw new WrongLoggingTypeException();
+            ifNotEqual(obja, objb.GetType());
         }
         public static void IfNotEqual(object obja, Type objb)
         {
-            if (obja.GetType() != objb)
-                throw new WrongLoggingTypeException();
+            ifNotEqual(obja.GetType(), objb);
         }
         public static void IfNotEqual(object obja, object objb)
         {
-            if (obja.GetType() != objb.GetType())
+            ifNotEqual(obja.GetType(), objb.GetType());
+        }
+        protected static void ifNotEqual(Type obja, Type objb)
+        {
+            if (obja != objb)
                 throw new WrongLoggingTypeException();
         }
     }
