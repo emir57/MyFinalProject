@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Core.Exceptions.UnAuthorized;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -51,19 +52,16 @@ namespace Core.Extensions
                     Errors = errors
                 }.ToString());
             }
-            if (e.Message == "Erişim Engellendi")
+            if (e.GetType() == typeof(UnAuthorizedException))
             {
-                return httpContext.Response.WriteAsync(new ErrorDetails
-                {
-                    Message = e.Message,
-                    StatusCode = 200
-                }.ToString());
+                httpContext.Response.StatusCode = 401;
+                message = e.Message;
             }
 
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = httpContext.Response.StatusCode,
-                Message = e.Message
+                Message = message
             }.ToString());
         }
     }
